@@ -17,7 +17,10 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
-            throw new NotImplementedException();
+            if (car.DailyPrice <= 0 || car.Description.Length < 20)
+            {
+                Console.WriteLine("Ücret 0'dan büyük ve Açıklama iki karakterden uzun olmalıdır.");
+            }
         }
 
         public List<Car> GetAll()
