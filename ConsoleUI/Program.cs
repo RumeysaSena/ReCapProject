@@ -44,7 +44,7 @@ namespace ConsoleUI
             {
                 foreach (var car in result.Data)
                 {
-                    Console.WriteLine(car.Id + "---" + car.CarName);
+                    Console.WriteLine(car.Id + "---" + car.CarName +"---" + car.BrandName + "---" + car.ColorName + "---" + car.DailyPrice + "TL" );
                 }
             }
             else
@@ -52,6 +52,7 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
           
+
             return carManager;
         }
     }
