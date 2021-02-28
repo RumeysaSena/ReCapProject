@@ -11,52 +11,40 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            CarTest();
+            //BrandTest();
+            //ColorTest();
 
+        }
 
+        private static void ColorTest()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            foreach (var color in colorManager.GetAll())
+            {
+                Console.WriteLine(color.ColorName);
+            }
+        }
+
+        private static void BrandTest()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            foreach (var brand in brandManager.GetAll())
+            {
+                Console.WriteLine(brand.BrandName);
+            }
+        }
+
+        private static CarManager CarTest()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            Console.WriteLine("Id     Model         Fiyat Listesi            Açıklama");
-            Console.WriteLine("--------------------------------------------------------------------");
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetCarDetails())
             {
-                Console.WriteLine(car.Id + "      " + car.ModelYear + "           " + car.DailyPrice + "         " + car.Description);
+                Console.WriteLine( car.Id + "---" + car.CarName);
             }
 
-            Console.WriteLine("\n\nBrandId'si 2 Olan Araçların Listelenmesi");
-            Console.WriteLine("--------------------------------------------------------------------");
-            foreach (var car in carManager.GetCarsByBrandId(2))
-            {
-                Console.WriteLine(car.Description);
-            }
-
-            Console.WriteLine("\n\nColorId'si 3 Olan Araçların Listelenmesi");
-            Console.WriteLine("--------------------------------------------------------------------");
-            foreach (var car in carManager.GetCarsByColorId(3))
-            {
-                Console.WriteLine(car.Description);
-            }
-
-            Console.WriteLine("\n\nFiyat Listesi 0 ile 950.000 Arasında Olan Araçların Listelenmesi");
-            Console.WriteLine("--------------------------------------------------------------------");
-            foreach (var car in carManager.GetByDailyPrice(0,950000))
-            {
-                Console.WriteLine(car.DailyPrice);
-            }
-
-            Console.WriteLine("\n\nYeni Eklenen Araç Listesi");
-            Console.WriteLine("--------------------------------------------------------------------");
-            List<Car> cars = new List<Car>();
-            cars.Add(new Car () { Id= 10, BrandId=10, ColorId=10, ModelYear=2010, Description=" GOLF", DailyPrice=100000 });
-            cars.Add(new Car()  { Id = 11, BrandId = 11, ColorId = 11, ModelYear = 2018, Description = "ASTON MARTIN", DailyPrice = 2650000 });
-           
-
-            Console.WriteLine("Id      Model              Fiyat Listesi             Açıklama");
-            Console.WriteLine("--------------------------------------------------------------------");
-
-            foreach (var car in cars)
-            {              
-                Console.WriteLine(car.Id + "      " + car.ModelYear + "                 " + car.DailyPrice + "                 " + car.Description );
-            }
+            return carManager;
         }
     }
 }
