@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -16,9 +17,17 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
+            //business codes
+
+            if (car.CarName.Length<2)
+            {
+                return new ErrorResult("Ürün ismi en az 2 karakter olmalıdır.");
+            }
             _carDal.Add(car);
+            
+            return new SuccessResult("Ürün eklendi.");            
         }
 
         public List<Car> GetAll()
@@ -29,6 +38,11 @@ namespace Business.Concrete
         public List<Car> GetByDailyPrice(int min, int max)
         {
             return _carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max);
+        }
+
+        public Car GetById(int Id)
+        {
+            return _carDal.Get(c=>c.Id==Id);
         }
 
         public List<CarDetailDto> GetCarDetails()
